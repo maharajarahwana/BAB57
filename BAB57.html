@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="UTF-8">
+    <title>BAB57</title>
+    
+
+  </head>
+    
+  <body>
+  <!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="UTF-8">
+    <title>BAB1</title>
+    
+
+  </head>
+    
+  <body>
+  <!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<title>Latihan Kosakata</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    background: #f4f4f4;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+  }
+  .card {
+    background: white;
+    padding: 30px;
+    width: 400px;
+    text-align: center;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  }
+  input {
+    width: 90%;
+    padding: 8px;
+    margin-top: 15px;
+  }
+  button {
+    margin-top: 20px;
+    padding: 8px 15px;
+    cursor: pointer;
+  }
+  .result {
+    font-size: 18px;
+    font-weight: bold;
+  }
+  .wrong { color: red; }
+  .correct { color: green; }
+  ol { text-align:left; max-height:400px; overflow:auto; }
+</style>
+</head>
+<body>
+
+<div class="card">
+  <h2 id="question"></h2>
+  <input type="text" id="answerInput" placeholder="Tulis jawaban di sini">
+  <br>
+  <button id="nextBtn">Selanjutnya</button>
+</div>
+
+<script>
+let questions = [
+{ soal: "고용 허가제", jawaban: "sistem EPS" },
+{ soal: "면접을 보다", jawaban: "wawancara" },
+{ soal: "업종", jawaban: "bidang" },
+{ soal: "받다", jawaban: "menerima" },
+{ soal: "제조업", jawaban: "manufaktur" },
+{ soal: "근로 계약", jawaban: "kontrak kerja" },
+{ soal: "건설업", jawaban: "konstruksi" },
+{ soal: "법률", jawaban: "hukum" },
+{ soal: "농업", jawaban: "pertanian" },
+{ soal: "비자", jawaban: "visa" },
+{ soal: "축산업", jawaban: "peternakan" },
+{ soal: "신입 사원", jawaban: "karyawan baru" },
+{ soal: "어업", jawaban: "perikanan" },
+{ soal: "공지", jawaban: "pengumuman" },
+{ soal: "조선업", jawaban: "industri pembuatan kapal" },
+{ soal: "훨씬", jawaban: "jauh lebih" },
+{ soal: "임업", jawaban: "kehutanan" },
+{ soal: "조선소", jawaban: "galangan kapal" },
+{ soal: "광업", jawaban: "pertambangan" },
+{ soal: "기대돼요", jawaban: "mengharapkan" },
+{ soal: "서비스업", jawaban: "industri jasa" },
+{ soal: "인력난", jawaban: "kekurangan pekerja" },
+{ soal: "호텔", jawaban: "hotel" },
+{ soal: "요건", jawaban: "persyaratan" },
+{ soal: "콘도업", jawaban: "bisnis kondominium" },
+{ soal: "시행하다", jawaban: "diberlakukan" },
+{ soal: "음식 서비스업", jawaban: "jasa makanan" },
+{ soal: "고용 노동부", jawaban: "disnaker (Nodongbu)" },
+{ soal: "신청하다", jawaban: "mendaftar" },
+{ soal: "한국산업인력공단", jawaban: "HRD Korea" },
+{ soal: "비슷하다", jawaban: "mirip" },
+{ soal: "당당하다", jawaban: "percaya diri / tegas" },
+{ soal: "건물을 짓다", jawaban: "membangun gedung" },
+{ soal: "최초", jawaban: "pertama" },
+{ soal: "가산점", jawaban: "poin tambahan" },
+{ soal: "재고용하다", jawaban: "mempekerjakan kembali" },
+{ soal: "1차 평가", jawaban: "evaluasi / ujian pertama" },
+{ soal: "원하다", jawaban: "ingin" },
+{ soal: "한국어 능력 시험", jawaban: "ujian EPS TOPIK" },
+{ soal: "최장", jawaban: "terpanjang" },
+{ soal: "2차 평가", jawaban: "evaluasi tahap kedua" },
+{ soal: "특례 고용", jawaban: "pekerjaan khusus" },
+{ soal: "기능 시험", jawaban: "tes keterampilan" },
+{ soal: "허가", jawaban: "izin" },
+{ soal: "구직자 명부", jawaban: "daftar pencari kerja" },
+{ soal: "의무", jawaban: "kewajiban" },
+{ soal: "작성", jawaban: "menulis / mengisi" },
+{ soal: "임금 체불", jawaban: "penunggakan gaji" },
+{ soal: "송부", jawaban: "mengirim" },
+{ soal: "근로기준법", jawaban: "undang-undang ketenagakerjaan" },
+{ soal: "표준 근로 계약서", jawaban: "kontrak kerja standar (SLC)" },
+{ soal: "동등하다", jawaban: "setara" },
+{ soal: "체결", jawaban: "menandatangani / mengikat" },
+{ soal: "보장", jawaban: "jaminan" },
+{ soal: "사전 취업 교육", jawaban: "pelatihan pra-kerja" },
+{ soal: "취업 기간", jawaban: "masa kerja" },
+{ soal: "입국", jawaban: "masuk negara" },
+{ soal: "정당한", jawaban: "dibenarkan" },
+{ soal: "사업장", jawaban: "tempat kerja" },
+{ soal: "사유", jawaban: "alasan" },
+{ soal: "배치", jawaban: "penempatan" },
+{ soal: "휴업", jawaban: "tutup sementara" },
+{ soal: "시험을 보다", jawaban: "mengikuti ujian" },
+{ soal: "폐업", jawaban: "bangkrut" },
+{ soal: "합격하다", jawaban: "lulus" },
+{ soal: "지속하다", jawaban: "berlangsung / terus-menerus" },
+{ soal: "불합격하다", jawaban: "tidak lulus" },
+{ soal: "곤란하다", jawaban: "sulit" },
+{ soal: "기초", jawaban: "dasar" },
+{ soal: "다만", jawaban: "tetapi / hanya" },
+{ soal: "체력", jawaban: "kekuatan fisik" },
+{ soal: "종료", jawaban: "selesai / habis" }
+];
+
+// Acak soal
+questions = questions.sort(() => Math.random() - 0.5);
+
+let index = 0;
+let score = 0;
+let userAnswers = [];
+
+const questionEl = document.getElementById("question");
+const answerInput = document.getElementById("answerInput");
+const nextBtn = document.getElementById("nextBtn");
+const card = document.querySelector(".card");
+
+function showQuestion() {
+  questionEl.textContent = "Soal " + (index + 1) + ": " + questions[index].soal;
+  answerInput.value = "";
+  answerInput.focus();
+}
+
+nextBtn.addEventListener("click", () => {
+  const userAnswer = answerInput.value.trim().toLowerCase();
+  userAnswers[index] = userAnswer; // simpan jawaban sesuai index
+
+  if (userAnswer === questions[index].jawaban) {
+    score++;
+  }
+
+  index++;
+  if (index < questions.length) {
+    showQuestion();
+  } else {
+    showResult();
+  }
+});
+
+function showResult() {
+  let answerList = "";
+  questions.forEach((q, i) => {
+    if (userAnswers[i] === q.jawaban) {
+      answerList += `<li>${q.soal} = <span class="correct">${q.jawaban}</span></li>`;
+    } else {
+      answerList += `<li>${q.soal} = <span class="correct">${q.jawaban}</span><br>
+                     Jawaban kamu: <span class="wrong">${userAnswers[i] || "(kosong)"}</span></li>`;
+    }
+  });
+
+  card.innerHTML = `
+    <h2>Hasil</h2>
+    <p class="result">Nilai: ${score} / ${questions.length}</p>
+    <hr>
+    <p>Kunci Jawaban:</p>
+    <ol>${answerList}</ol>
+  `;
+}
+
+showQuestion();
+</script>
+
+</body>
+</html>
+    
+  </body>
+  
+</html>
